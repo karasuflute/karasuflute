@@ -4,11 +4,59 @@
     <meta charset="UTF-8">
     <title>[KAAA] 正規品判定サイト</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f4f4; }
-        .search-box { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        input { padding: 10px; width: 250px; font-size: 16px; }
-        button { padding: 10px 20px; font-size: 16px; background: #007BFF; color: white; border: none; cursor: pointer; }
-        #result { margin-top: 20px; font-size: 18px; font-weight: bold; }
+        /* 画面全体の背景（壁紙）の設定 */
+        body { 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            text-align: center; 
+            padding: 80px 20px; 
+            background-color: #0d1117; /* ★ここを深い黒（ダークモード）に変更 */
+            color: #c9d1d9; 
+            margin: 0;
+        }
+        /* 入力エリアを囲む白い枠の設定 */
+        .search-box { 
+            background: #161b22; /* ★枠の内側を濃いグレーに変更 */
+            padding: 40px 30px; 
+            border-radius: 12px; /* 角を少し丸く */
+            display: inline-block; 
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.2); /* ★青い光のグラデーション */
+            border: 1px solid #30363d; /* 薄い枠線 */
+            max-width: 450px;
+            width: 100%;
+        }
+        h2 { color: #ffffff; margin-bottom: 10px; font-size: 24px; }
+        p { color: #8b949e; font-size: 14px; margin-bottom: 25px; }
+        /* 文字を入力する箱（インプット欄）の設定 */
+        input { 
+            padding: 12px; 
+            width: 280px; 
+            font-size: 16px; 
+            background: #0d1117; 
+            color: white; 
+            border: 1px solid #30363d; 
+            border-radius: 6px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        /* 入力欄をクリックしたときの光り方 */
+        input:focus { border-color: #58a6ff; outline: none; }
+        /* 「判定する」ボタンの設定 */
+        button { 
+            padding: 12px 24px; 
+            font-size: 16px; 
+            background: #1f6feb; /* ★鮮やかな青色に変更 */
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold;
+            margin-top: 15px;
+            width: 100%; /* ボタンを押しやすく横いっぱいに広げる */
+            transition: background 0.2s;
+        }
+        button:hover { background: #388bfd; } /* マウスを乗せたときの色 */
+        /* 結果が表示される場所の設定 */
+        #result { margin-top: 25px; font-size: 18px; font-weight: bold; line-height: 1.6; }
     </style>
 </head>
 <body>
