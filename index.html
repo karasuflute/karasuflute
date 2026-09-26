@@ -67,23 +67,25 @@
         }
         button:hover { background: #388bfd; }
         #result { margin-top: 25px; font-size: 18px; font-weight: bold; line-height: 1.6; }
-        .links-container { margin-top: 40px; }
-        .btn-link {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 5px;
-            font-size: 14px;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            background: #21262d;
-            border: 1px solid #30363d;
-            transition: background 0.2s;
+        
+        /* 🔗 ただのテキストリンク用のシンプルな装飾 */
+        .links-container { 
+            margin-top: 40px; 
         }
-        .btn-link:hover { background: #30363d; border-color: #8b949e; }
-        .btn-booth { background: #ff4081; border-color: #ff4081; }
-        .btn-booth:hover { background: #f50057; border-color: #f50057; }
+        .simple-link {
+            color: #58a6ff; /* 綺麗なリンクの青色 */
+            text-decoration: underline; /* 下線 */
+            margin: 0 10px;
+            font-size: 15px;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .simple-link:hover {
+            color: #79c0ff; /* マウスを乗せたときに少し明るく */
+        }
     </style>
 </head>
 <body>
@@ -91,37 +93,30 @@
     <div class="intro-text">
         <p style="color: #ffffff; font-weight: bold; font-size: 16px; margin-bottom: 10px;">KARASUレバーをお迎えしてくれてありがとカァー(ﾟ ∑ ﾟ)</p>
         <p style="margin: 0; font-size: 14px; color: #c9d1d9;">
-            たぶん鴉が作った物だと思うけど、確実に判定する場合はNFCリーダーアプリをダウンロードし、レバーボールの頂点にかざして「UID（シリアル番号）」を読み取ってください。<br>
+            確実に判定する場合はNFCリーダーアプリをダウンロードし、レバーボールの頂点にかざして「UID（シリアル番号）」を読み取ってください。<br>
             読み取ったUIDを下の検索窓に入力することで、正規品かどうかが分かります。
         </p>
-          <div class="app-links">
-            <span style="font-size: 12px; color: #8b949e; display: block;">【おすすめリーダーアプリ（無料）】</span>
-            <a href="https://apps.apple.com/jp/app/nfc-tools/id1252962749" target="_blank" class="app-btn">🍏 iPhone用 (NFC Tools)</a>
-            <a href="https://play.google.com/store/apps/details?id=com.wakdev.wdnfc&pcampaignid=web_share" target="_blank" class="app-btn">🤖 Android用 (NFC Tools)</a>
-        </div>
     </div>
 
     <div class="search-box">
         <h2>正規品シリアル判定</h2>
         <p>KARASUレバーのUID（シリアル番号）を入力してくれカァー(ﾟ ∑ ﾟ)</p>
-        <p>※半角英数字と:(半角コロン)で書いてなァ</p>
         <input type="text" id="uidInput" placeholder="例: 5A:95:67:5B:1A:41:89">
         <button onclick="checkUID()">判定する</button>
         <div id="result"></div>
     </div>
 
- <div class="links-container">
+    <!-- 🔗 余計な飾りを全カットした、ただのテキストリンク -->
+    <div class="links-container">
         <button onclick="window.open('https://booth.pm', '_blank')" class="simple-link">[公式ショップ（BOOTH）]</button>
         <button onclick="window.open('https://x.com', '_blank')" class="simple-link">[鴉のX]</button>
         <button onclick="window.open('https://youtube.com', '_blank')" class="simple-link">[鴉のYouTube]</button>
     </div>
 
     <script>
-        // ハッシュ
+        // あなたがハッシュ生成サイトで出した値（大文字のまま計算した暗号データ）
         const allowedHashes = [
-"5071fbd98fb67d1bd5662ad69098b5d12349a21d40519fe1a2c1fac8fb05efe0",
-"1616b037c1ea9993901a7ea5c470a035c8286259087845118cdabfb05dee97ab",
-"91e8d8e737698b2c71657cebc5cb4cca1103a793ad3be2d9dec5f6f034851b4a",
+            "5071fbd98fb67d1bd5662ad69098b5d12349a21d40519fe1a2c1fac8fb05efe0"
         ];
 
         async function sha256(text) {
