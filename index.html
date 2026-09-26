@@ -111,17 +111,15 @@
     </div>
 
     <script>
-        // ボタンリンクの自動置換を完全に回避する処理
         function goBooth() { window.open("https://booth.pm", "_blank"); }
         function goX() { window.open("https://x.com", "_blank"); }
         function goYoutube() { window.open("https://youtube.com", "_blank"); }
 
-        // ★暗号化されたシリアルリスト（5A:95:67:5B:1A:41:89 のスープ状態）
+        // 暗号化された正規リスト
         const allowedHashes = [
             "601362e604f326302489c629fbbe923838ff4ad43c3f0b2aa7e2212a4b8df2dd"
         ];
 
-        // 外部に依存しない自前での暗号化（SHA-256）処理プログラム
         async function sha256(text) {
             const msgBuffer = new TextEncoder().encode(text);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -130,7 +128,8 @@
         }
 
         async function checkUID() {
-            const input = document.getElementById('uidInput').value.trim();
+            // ★ .toLowerCase() を追加して、入力された大文字をすべて強制的に小文字に変換
+            const input = document.getElementById('uidInput').value.trim().toLowerCase();
             const resultDiv = document.getElementById('result');
             
             if (input === "") {
@@ -139,10 +138,8 @@
                 return;
             }
 
-            // 自前プログラムでその場で即座にハッシュ化
             const inputHash = await sha256(input);
 
-            // 比較
             if (allowedHashes.includes(inputHash)) {
                 resultDiv.innerHTML = "🟢 正規品（認証済み）<br>この製品は公式が製造した本物だョ(ﾟ ∑ ﾟ)";
                 resultDiv.style.color = "#58a6ff";
