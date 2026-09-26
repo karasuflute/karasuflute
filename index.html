@@ -6,18 +6,21 @@
     <style>
         /* 画面全体の背景（壁紙）の設定 */
                /* 画面全体の背景（壁紙）の設定 */
+        /* 画面全体の背景（壁紙）の設定 */
         body { 
             font-family: 'Helvetica Neue', Arial, sans-serif; 
             text-align: center; 
             padding: 80px 20px; 
             
-            /* ★ここから背景画像（アイコン）の設定 */
-            background-image: url('icon.png'); /* さっきアップロードした画像を指定 */
-            background-repeat: no-repeat;       /* 画像を繰り返さず1枚だけ表示 */
-            background-position: center;        /* 画面の真ん中に配置 */
-            background-size: cover;             /* 画面全体に引き伸ばして敷き詰める */
-            background-attachment: fixed;       /* 画面をスクロールしても背景を固定 */
+            background-color: #0d1117;          /* 背景のベース色を黒にしておく */
+            background-image: url('icon.png');  /* アップロードした画像 */
+            background-repeat: no-repeat;       /* 画像を繰り返さない */
+            background-position: center 15%;    /* 画面の真ん中、上から15%の位置に配置 */
             
+            /* ★ここを変更してサイズを細かく指定します */
+            background-size: 150px;             /* 横幅を150ピクセルに縮小（数字を小さくするとさらに小さくなります） */
+            
+            background-attachment: fixed; 
             color: #c9d1d9; 
             margin: 0;
         }
