@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ｐ<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -91,7 +91,7 @@
     <div class="intro-text">
         <p style="color: #ffffff; font-weight: bold; font-size: 16px; margin-bottom: 10px;">KARASUレバーをお迎えしてくれてありがとカァー(ﾟ ∑ ﾟ)</p>
         <p style="margin: 0; font-size: 14px; color: #c9d1d9;">
-            確実に判定する場合はNFCリーダーアプリ（NFC Toolsなど）をダウンロードし、レバーボールの頂点にかざして「UID（シリアル番号）」を読み取ってください。<br>
+            確実に判定する場合はNFCリーダーアプリをダウンロードし、レバーボールの頂点にかざして「UID（シリアル番号）」を読み取ってください。<br>
             読み取ったUIDを下の検索窓に入力することで、正規品かどうかが分かります。
         </p>
     </div>
@@ -115,9 +115,9 @@
         function goX() { window.open("https://x.com", "_blank"); }
         function goYoutube() { window.open("https://youtube.com", "_blank"); }
 
-        // 暗号化された正規リスト
+        // ★あなたが算出した、コロン付きの正しいハッシュ値に差し替えました
         const allowedHashes = [
-            "601362e604f326302489c629fbbe923838ff4ad43c3f0b2aa7e2212a4b8df2dd"
+            "5071fbd98fb67d1bd5662ad69098b5d12349a21d40519fe1a2c1fac8fb05efe0"
         ];
 
         async function sha256(text) {
@@ -128,7 +128,6 @@
         }
 
         async function checkUID() {
-            // ★ .toLowerCase() を追加して、入力された大文字をすべて強制的に小文字に変換
             const input = document.getElementById('uidInput').value.trim().toLowerCase();
             const resultDiv = document.getElementById('result');
             
