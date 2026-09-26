@@ -2,58 +2,63 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <!-- 📱 スマホで文字や画面が小さくなるのを防ぐ最重要命令 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KARASUレバー 正規品判定システム</title>
     <style>
         body { 
             font-family: 'Helvetica Neue', Arial, sans-serif; 
             text-align: center; 
-            padding: 50px 20px; 
+            padding: 30px 15px; /* スマホ用に全体の上下余白を少し詰める */
             background-color: #0d1117;
             background-image: url('icon.png');
             background-repeat: no-repeat;
-            background-position: center 15%;
-            background-size: 150px;
+            background-position: center 10%;
+            background-size: 120px; /* スマホで見栄えが良いようにアイコンを少しコンパクトに */
             background-attachment: fixed; 
             color: #c9d1d9; 
             margin: 0;
+            font-size: 16px; /* 基本の文字サイズをスマホ基準に */
         }
         .intro-text {
-            max-width: 500px;
-            margin: 180px auto 30px auto; 
-            background: rgba(22, 27, 34, 0.8);
+            max-width: 450px;
+            margin: 150px auto 25px auto; /* アイコン画像との間隔をスマホ用に調整 */
+            background: rgba(22, 27, 34, 0.85);
             padding: 20px;
             border-radius: 8px;
             border: 1px solid #30363d;
             text-align: left;
             line-height: 1.6;
+            box-sizing: border-box;
         }
         .search-box { 
             background: #161b22; 
-            padding: 40px 30px; 
+            padding: 35px 20px; /* 左右の余白をスマホ向けに少し狭める */
             border-radius: 12px; 
             display: inline-block; 
             box-shadow: 0 0 20px rgba(0, 123, 255, 0.2); 
             border: 1px solid #30363d; 
             max-width: 450px;
             width: 100%;
-            box-sizing: border-box;
+            box-sizing: border-box; /* 画面からはみ出るのを防ぐ */
         }
-        h2 { color: #ffffff; margin-bottom: 10px; font-size: 24px; }
-        p { color: #8b949e; font-size: 14px; margin-bottom: 25px; }
+        h2 { color: #ffffff; margin-bottom: 10px; font-size: 22px; } /* スマホで見やすい見出しサイズ */
+        p { color: #8b949e; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
         input { 
-            padding: 12px; 
+            padding: 14px; /* 指でタップしやすいように少し厚みを持たせる */
             width: 100%; 
-            font-size: 16px; 
+            font-size: 16px; /* iPhoneでズームバグが起きない最適なサイズ */
             background: #0d1117; 
             color: white; 
             border: 1px solid #30363d; 
             border-radius: 6px;
             box-sizing: border-box;
             text-align: center;
+            -webkit-appearance: none; /* スマホ特有の余計な影を消す */
         }
         input:focus { border-color: #58a6ff; outline: none; }
         button { 
-            padding: 12px 24px; 
+            padding: 14px 24px; 
             font-size: 16px; 
             background: #1f6feb; 
             color: white; 
@@ -64,34 +69,36 @@
             margin-top: 15px;
             width: 100%; 
             transition: background 0.2s;
+            -webkit-appearance: none;
         }
         button:hover { background: #388bfd; }
         #result { margin-top: 25px; font-size: 18px; font-weight: bold; line-height: 1.6; }
         
-        /* 🔗 ただのテキストリンク用のシンプルな装飾 */
         .links-container { 
             margin-top: 40px; 
+            padding-bottom: 40px;
         }
         .simple-link {
-            color: #58a6ff; /* 綺麗なリンクの青色 */
-            text-decoration: underline; /* 下線 */
-            margin: 0 10px;
+            color: #58a6ff; 
+            text-decoration: underline; 
+            margin: 10px; /* スマホで押し間違えないように間隔を広げる */
             font-size: 15px;
             background: none;
             border: none;
-            padding: 0;
+            padding: 5px; /* タップ領域を広げる */
             cursor: pointer;
             font-family: inherit;
+            display: inline-block; /* スマホの縦並び・横並びのバランス調整 */
         }
         .simple-link:hover {
-            color: #79c0ff; /* マウスを乗せたときに少し明るく */
+            color: #79c0ff; 
         }
     </style>
 </head>
 <body>
 
     <div class="intro-text">
-        <p style="color: #ffffff; font-weight: bold; font-size: 16px; margin-bottom: 10px;">KARASUレバーをお迎えしてくれてありがとカァー(ﾟ ∑ ﾟ)</p>
+        <p style="color: #ffffff; font-weight: bold; font-size: 16px; margin-bottom: 10px; text-align: center;">KARASUレバーをお迎えしてくれてありがとカァー(ﾟ ∑ ﾟ)</p>
         <p style="margin: 0; font-size: 14px; color: #c9d1d9;">
             確実に判定する場合はNFCリーダーアプリをダウンロードし、レバーボールの頂点にかざして「UID（シリアル番号）」を読み取ってください。<br>
             読み取ったUIDを下の検索窓に入力することで、正規品かどうかが分かります。
@@ -106,7 +113,6 @@
         <div id="result"></div>
     </div>
 
-    <!-- 🔗 余計な飾りを全カットした、ただのテキストリンク -->
     <div class="links-container">
         <button onclick="window.open('https://booth.pm', '_blank')" class="simple-link">[公式ショップ（BOOTH）]</button>
         <button onclick="window.open('https://x.com', '_blank')" class="simple-link">[鴉のX]</button>
@@ -114,7 +120,6 @@
     </div>
 
     <script>
-        // あなたがハッシュ生成サイトで出した値（大文字のまま計算した暗号データ）
         const allowedHashes = [
             "5071fbd98fb67d1bd5662ad69098b5d12349a21d40519fe1a2c1fac8fb05efe0"
         ];
