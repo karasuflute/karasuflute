@@ -2,43 +2,47 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>[KAAA] 正規品判定サイト</title>
+    <title>KARASUレバー 正規品判定システム</title>
     <style>
-        /* 画面全体の背景（壁紙）の設定 */
         body { 
             font-family: 'Helvetica Neue', Arial, sans-serif; 
             text-align: center; 
-            padding: 80px 20px; 
-            
-            background-color: #0d1117;          /* 背景のベース色を黒にしておく */
-            background-image: url('icon.png');  /* アップロードした画像 */
-            background-repeat: no-repeat;       /* 画像を繰り返さない */
-            background-position: center 50%;    /* 画面の真ん中、上から15%の位置に配置 */
-            
-            /* ★ここを変更してサイズを細かく指定します */
-            background-size: 300px;             /* 横幅を150ピクセルに縮小（数字を小さくするとさらに小さくなります） */
-            
+            padding: 50px 20px; 
+            background-color: #0d1117;
+            background-image: url('icon.png');
+            background-repeat: no-repeat;
+            background-position: center 50%;
+            background-size: 3000px;
             background-attachment: fixed; 
             color: #c9d1d9; 
             margin: 0;
         }
-        /* 入力エリアを囲む白い枠の設定 */
+        .intro-text {
+            max-width: 500px;
+            margin: 180px auto 30px auto; /* アイコン画像と被らないように上の余白を調整 */
+            background: rgba(22, 27, 34, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            text-align: left;
+            line-height: 1.6;
+        }
         .search-box { 
-            background: #161b22; /* ★枠の内側を濃いグレーに変更 */
+            background: #161b22; 
             padding: 40px 30px; 
-            border-radius: 12px; /* 角を少し丸く */
+            border-radius: 12px; 
             display: inline-block; 
-            box-shadow: 0 0 20px rgba(0, 123, 255, 0.2); /* ★青い光のグラデーション */
-            border: 1px solid #30363d; /* 薄い枠線 */
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.2); 
+            border: 1px solid #30363d; 
             max-width: 450px;
             width: 100%;
+            box-sizing: border-box;
         }
         h2 { color: #ffffff; margin-bottom: 10px; font-size: 24px; }
         p { color: #8b949e; font-size: 14px; margin-bottom: 25px; }
-        /* 文字を入力する箱（インプット欄）の設定 */
         input { 
             padding: 12px; 
-            width: 280px; 
+            width: 100%; 
             font-size: 16px; 
             background: #0d1117; 
             color: white; 
@@ -47,28 +51,60 @@
             box-sizing: border-box;
             text-align: center;
         }
-        /* 入力欄をクリックしたときの光り方 */
         input:focus { border-color: #58a6ff; outline: none; }
-        /* 「判定する」ボタンの設定 */
         button { 
             padding: 12px 24px; 
             font-size: 16px; 
-            background: #1f6feb; /* ★鮮やかな青色に変更 */
+            background: #1f6feb; 
             color: white; 
             border: none; 
             border-radius: 6px; 
             cursor: pointer; 
             font-weight: bold;
             margin-top: 15px;
-            width: 100%; /* ボタンを押しやすく横いっぱいに広げる */
+            width: 100%; 
             transition: background 0.2s;
         }
-        button:hover { background: #388bfd; } /* マウスを乗せたときの色 */
-        /* 結果が表示される場所の設定 */
+        button:hover { background: #388bfd; }
         #result { margin-top: 25px; font-size: 18px; font-weight: bold; line-height: 1.6; }
+        
+        /* リンクボタンの装飾 */
+        .links-container {
+            margin-top: 40px;
+        }
+        .btn-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            transition: background 0.2s;
+        }
+        .btn-link:hover {
+            background: #30363d;
+            border-color: #8b949e;
+        }
+        .btn-booth { background: #ff4081; border-color: #ff4081; }
+        .btn-booth:hover { background: #f50057; border-color: #f50057; }
     </style>
 </head>
 <body>
+
+    <!-- 先頭の案内文 -->
+    <div class="intro-text">
+        <p style="color: #ffffff; font-weight: bold; font-size: 16px; margin-bottom: 10px;">KARASUレバーをお迎えしてくれてありがとカァー(ﾟ ∑ ﾟ)</p>
+        <p style="margin: 0; font-size: 14px; color: #c9d1d9;">
+            たぶん鴉が作った本物だと思うけど、確実に判定する場合はNFCリーダーアプリ（NFC Toolsなど）をダウンロードし、レバーボールの頂点にかざして「UID（シリアル番号）」を読み取ってください。<br>
+            読み取ったUIDを下の検索窓に入力することで、正規品かどうかが分かります。
+        </p>
+    </div>
+
+    <!-- 判定ボックス -->
     <div class="search-box">
         <h2>正規品シリアル判定</h2>
         <p>KARASUレバーのUID（シリアル番号）を入力してくれカァー(ﾟ ∑ ﾟ)</p>
@@ -77,12 +113,17 @@
         <div id="result"></div>
     </div>
 
+    <!-- 末尾の公式リンク一覧 -->
+    <div class="links-container">
+        <a href="https://booth.pm" target="_blank" class="btn-link btn-booth">[公式ショップ（BOOTH）]</a>
+        <a href="https://x.com/karasuflute" target="_blank" class="btn-link">[鴉のX]</a>
+        <a href="https://www.youtube.com/@karasuflute" target="_blank" class="btn-link">[鴉のYouTube]</a>
+    </div>
+
     <script>
-        // この下に、AirtableからダウンロードしたCSVの中身（UIDのリスト）をそのまま貼り付けます
+        // この下に、UIDのリストを追加していきます
         const allowedUIDs = [
-            "5A:95:67:5B:1A:41:89",
-            "ここに次のUIDを追加していく",
-            "ここに次のUIDを追加していく"
+            "5A:95:67:5B:1A:41:89"
         ];
 
         function checkUID() {
@@ -90,18 +131,17 @@
             const resultDiv = document.getElementById('result');
             
             if (input === "") {
-                resultDiv.innerHTML = "UIDを入力してください。";
-                resultDiv.style.color = "black";
+                resultDiv.innerHTML = "UIDを入力してくれカァー(ﾟ ∑ ﾟ)";
+                resultDiv.style.color = "#ffa23e";
                 return;
             }
 
-            // リスト（allowedUIDs）の中に、入力された文字があるかないかだけを判定
             if (allowedUIDs.includes(input)) {
-                resultDiv.innerHTML = "🟢 正規品（認証済み）<br>この製品は鴉がまぁまぁ魂込めて作った本物だョ。";
-                resultDiv.style.color = "green";
+                resultDiv.innerHTML = "🟢 正規品（認証済み）<br>この製品は公式が製造した本物だョ(ﾟ ∑ ﾟ)";
+                resultDiv.style.color = "#58a6ff";
             } else {
-                resultDiv.innerHTML = "❌ 未登録の製品<br>ニセモノカァー(ﾟ ∑ ﾟ)";
-                resultDiv.style.color = "red";
+                resultDiv.innerHTML = "❌ 未登録の製品<br>偽物、または模倣品の可能性があるカァー(ﾟ ∑ ﾟ)";
+                resultDiv.style.color = "#f85149";
             }
         }
     </script>
