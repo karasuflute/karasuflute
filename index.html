@@ -110,17 +110,13 @@
         <div id="result"></div>
     </div>
 
-    <div class="links-container">
-        <button onclick="goBooth()" class="btn-link btn-booth">[公式ショップ（BOOTH）]</button>
-        <button onclick="goX()" class="btn-link">[鴉のX]</button>
-        <button onclick="goYoutube()" class="btn-link">[鴉のYouTube]</button>
+ <div class="links-container">
+        <button onclick="window.open('https://booth.pm', '_blank')" class="simple-link">[公式ショップ（BOOTH）]</button>
+        <button onclick="window.open('https://x.com', '_blank')" class="simple-link">[鴉のX]</button>
+        <button onclick="window.open('https://youtube.com', '_blank')" class="simple-link">[鴉のYouTube]</button>
     </div>
 
     <script>
-        function goBooth() { window.open("https://booth.pm", "_blank"); }
-        function goX() { window.open("https://x.com", "_blank"); }
-        function goYoutube() { window.open("https://youtube.com", "_blank"); }
-
         // ハッシュ
         const allowedHashes = [
 "5071fbd98fb67d1bd5662ad69098b5d12349a21d40519fe1a2c1fac8fb05efe0",
