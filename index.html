@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>KARASUレバー 正規品判定システム</title>
-    <!-- 暗号化（SHA-256）を行うための安全なライブラリを読み込み -->
-    <script src="https://cloudflare.com"></script>
     <style>
         body { 
             font-family: 'Helvetica Neue', Arial, sans-serif; 
@@ -107,20 +105,31 @@
     </div>
 
     <div class="links-container">
-        <a href="https://booth.pm" target="_blank" class="btn-link btn-booth">[公式ショップ（BOOTH）]</a>
-        <a href="https://x.com" target="_blank" class="btn-link">[鴉のX]</a>
-        <a href="https://youtube.com" target="_blank" class="btn-link">[鴉のYouTube]</a>
+        <button onclick="goBooth()" class="btn-link btn-booth">[公式ショップ（BOOTH）]</button>
+        <button onclick="goX()" class="btn-link">[鴉のX]</button>
+        <button onclick="goYoutube()" class="btn-link">[鴉のYouTube]</button>
     </div>
 
     <script>
-        // ★ここには「暗号化された文字列」だけを載せます
-        // ※「5A:95:67:5B:1A:41:89」を暗号化した文字列が以下です
+        // ボタンリンクの自動置換を完全に回避する処理
+        function goBooth() { window.open("https://booth.pm", "_blank"); }
+        function goX() { window.open("https://x.com", "_blank"); }
+        function goYoutube() { window.open("https://youtube.com", "_blank"); }
+
+        // ★暗号化されたシリアルリスト（5A:95:67:5B:1A:41:89 のスープ状態）
         const allowedHashes = [
-            "601362e604f326302489c629fbbe923838ff4ad43c3f0b2aa7e2212a4b8df2dd",
-            "1616b037c1ea9993901a7ea5c470a035c8286259087845118cdabfb05dee97ab",
+            "601362e604f326302489c629fbbe923838ff4ad43c3f0b2aa7e2212a4b8df2dd"
         ];
 
-        function checkUID() {
+        // 外部に依存しない自前での暗号化（SHA-256）処理プログラム
+        async function sha256(text) {
+            const msgBuffer = new TextEncoder().encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkUID() {
             const input = document.getElementById('uidInput').value.trim();
             const resultDiv = document.getElementById('result');
             
@@ -130,10 +139,10 @@
                 return;
             }
 
-            // 入力されたUIDをその場で暗号化（SHA-256）
-            const inputHash = CryptoJS.SHA256(input).toString();
+            // 自前プログラムでその場で即座にハッシュ化
+            const inputHash = await sha256(input);
 
-            // 暗号文同士を比較する
+            // 比較
             if (allowedHashes.includes(inputHash)) {
                 resultDiv.innerHTML = "🟢 正規品（認証済み）<br>この製品は公式が製造した本物だョ(ﾟ ∑ ﾟ)";
                 resultDiv.style.color = "#58a6ff";
