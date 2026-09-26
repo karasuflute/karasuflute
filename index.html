@@ -5,11 +5,19 @@
     <title>[KAAA] 正規品判定サイト</title>
     <style>
         /* 画面全体の背景（壁紙）の設定 */
+               /* 画面全体の背景（壁紙）の設定 */
         body { 
             font-family: 'Helvetica Neue', Arial, sans-serif; 
             text-align: center; 
             padding: 80px 20px; 
-            background-color: #0d1117; /* ★ここを深い黒（ダークモード）に変更 */
+            
+            /* ★ここから背景画像（アイコン）の設定 */
+            background-image: url('icon.png'); /* さっきアップロードした画像を指定 */
+            background-repeat: no-repeat;       /* 画像を繰り返さず1枚だけ表示 */
+            background-position: center;        /* 画面の真ん中に配置 */
+            background-size: cover;             /* 画面全体に引き伸ばして敷き詰める */
+            background-attachment: fixed;       /* 画面をスクロールしても背景を固定 */
+            
             color: #c9d1d9; 
             margin: 0;
         }
