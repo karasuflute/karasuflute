@@ -116,7 +116,7 @@
         function goX() { window.open("https://x.com", "_blank"); }
         function goYoutube() { window.open("https://youtube.com", "_blank"); }
 
-        // あなたがハッシュ生成サイトで出した値をそのまま固定
+        // ハッシュ
         const allowedHashes = [
 "5071fbd98fb67d1bd5662ad69098b5d12349a21d40519fe1a2c1fac8fb05efe0",
 "1616b037c1ea9993901a7ea5c470a035c8286259087845118cdabfb05dee97ab",
@@ -131,7 +131,6 @@
         }
 
         async function checkUID() {
-            // 変形を一切行わず、入力された文字のまま取得
             const input = document.getElementById('uidInput').value.trim();
             const resultDiv = document.getElementById('result');
             
