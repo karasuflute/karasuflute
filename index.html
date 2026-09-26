@@ -19,30 +19,13 @@
         }
         .intro-text {
             max-width: 500px;
-            margin: 180px auto 30px auto; /* アイコン画像と被らないように上の余白を調整 */
+            margin: 180px auto 30px auto; 
             background: rgba(22, 27, 34, 0.8);
             padding: 20px;
             border-radius: 8px;
             border: 1px solid #30363d;
             text-align: left;
             line-height: 1.6;
-        }
-        .app-links {
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #30363d;
-        }
-        .app-btn {
-            display: inline-block;
-            margin-right: 10px;
-            margin-top: 5px;
-            color: #58a6ff;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: bold;
-        }
-        .app-btn:hover {
-            text-decoration: underline;
         }
         .search-box { 
             background: #161b22; 
@@ -84,11 +67,7 @@
         }
         button:hover { background: #388bfd; }
         #result { margin-top: 25px; font-size: 18px; font-weight: bold; line-height: 1.6; }
-        
-        /* リンクボタンの装飾 */
-        .links-container {
-            margin-top: 40px;
-        }
+        .links-container { margin-top: 40px; }
         .btn-link {
             display: inline-block;
             padding: 10px 20px;
@@ -102,33 +81,21 @@
             border: 1px solid #30363d;
             transition: background 0.2s;
         }
-        .btn-link:hover {
-            background: #30363d;
-            border-color: #8b949e;
-        }
+        .btn-link:hover { background: #30363d; border-color: #8b949e; }
         .btn-booth { background: #ff4081; border-color: #ff4081; }
         .btn-booth:hover { background: #f50057; border-color: #f50057; }
     </style>
 </head>
 <body>
 
-    <!-- 先頭の案内文 -->
     <div class="intro-text">
         <p style="color: #ffffff; font-weight: bold; font-size: 16px; margin-bottom: 10px;">KARASUレバーをお迎えしてくれてありがとカァー(ﾟ ∑ ﾟ)</p>
         <p style="margin: 0; font-size: 14px; color: #c9d1d9;">
-            たぶん鴉が作った本物だと思うけど、確実に判定する場合はNFCリーダーアプリをダウンロードし、レバーボールの頂点にかざして「UID（シリアル番号）」を読み取ってください。<br>
+            確実に判定する場合はNFCリーダーアプリ（NFC Toolsなど）をダウンロードし、レバーボールの頂点にかざして「UID（シリアル番号）」を読み取ってください。<br>
             読み取ったUIDを下の検索窓に入力することで、正規品かどうかが分かります。
         </p>
-        
-        <!-- アプリのダウンロードリンク -->
-        <div class="app-links">
-            <span style="font-size: 12px; color: #8b949e; display: block;">【おすすめリーダーアプリ（無料）】</span>
-            <a href="https://apps.apple.com/jp/app/nfc-tools/id1252962749" target="_blank" class="app-btn">🍏 iPhone用 (NFC Tools)</a>
-            <a href="https://play.google.com/store/apps/details?id=com.wakdev.wdnfc&hl=ja" target="_blank" class="app-btn">🤖 Android用 (NFC Tools)</a>
-        </div>
     </div>
 
-    <!-- 判定ボックス -->
     <div class="search-box">
         <h2>正規品シリアル判定</h2>
         <p>KARASUレバーのUID（シリアル番号）を入力してくれカァー(ﾟ ∑ ﾟ)</p>
@@ -137,7 +104,6 @@
         <div id="result"></div>
     </div>
 
-    <!-- 末尾の公式リンク一覧 -->
     <div class="links-container">
         <a href="https://booth.pm" target="_blank" class="btn-link btn-booth">[公式ショップ（BOOTH）]</a>
         <a href="https://x.com" target="_blank" class="btn-link">[鴉のX]</a>
@@ -145,12 +111,7 @@
     </div>
 
     <script>
-        // この下に、UIDのリストを追加していきます
-        const allowedUIDs = [
-            "5A:95:67:5B:1A:41:89"
-        ];
-
-        function checkUID() {
+        async function checkUID() {
             const input = document.getElementById('uidInput').value.trim();
             const resultDiv = document.getElementById('result');
             
@@ -160,12 +121,29 @@
                 return;
             }
 
-            if (allowedUIDs.includes(input)) {
-                resultDiv.innerHTML = "🟢 正規品（認証済み）<br>この製品は公式が製造した本物だョ(ﾟ ∑ ﾟ)";
-                resultDiv.style.color = "#58a6ff";
-            } else {
-                resultDiv.innerHTML = "❌ 未登録の製品<br>偽物、または模倣品の可能性があるカァー(ﾟ ∑ ﾟ)";
-                resultDiv.style.color = "#f85149";
+            try {
+                // 同じフォルダにある list.csv を裏側で読み込む
+                const response = await fetch('list.csv');
+                if (!response.ok) {
+                    throw new Error('CSVファイルの読み込みに失敗しました。');
+                }
+                const csvText = await response.text();
+                
+                // CSVを行ごとに分解し、空白や改行を綺麗にする
+                const allowedUIDs = csvText.split('\n').map(row => row.trim()).filter(row => row !== "");
+
+                // リスト（CSV内）に入力されたUIDがあるか検索
+                if (allowedUIDs.includes(input)) {
+                    resultDiv.innerHTML = "🟢 正規品（認証済み）<br>この製品は公式が製造した本物だョ(ﾟ ∑ ﾟ)";
+                    resultDiv.style.color = "#58a6ff";
+                } else {
+                    resultDiv.innerHTML = "❌ 未登録の製品<br>偽物、または模倣品の可能性があるカァー(ﾟ ∑ ﾟ)";
+                    resultDiv.style.color = "#f85149";
+                }
+            } catch (error) {
+                resultDiv.innerHTML = "⚠️ エラーが発生しました。時間を置いて再度お試しください。";
+                resultDiv.style.color = "#ffa23e";
+                console.error(error);
             }
         }
     </script>
