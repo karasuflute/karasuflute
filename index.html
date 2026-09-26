@@ -19,7 +19,7 @@
         }
         .intro-text {
             max-width: 500px;
-            margin: 180px auto 30px auto; /* アイコン画像と被らないように上の余白を調整 */
+            margin: 180px auto 30px auto; 
             background: rgba(22, 27, 34, 0.8);
             padding: 20px;
             border-radius: 8px;
@@ -40,6 +40,11 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: bold;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
         }
         .app-btn:hover {
             text-decoration: underline;
@@ -85,7 +90,6 @@
         button:hover { background: #388bfd; }
         #result { margin-top: 25px; font-size: 18px; font-weight: bold; line-height: 1.6; }
         
-        /* リンクボタンの装飾 */
         .links-container {
             margin-top: 40px;
         }
@@ -120,11 +124,11 @@
             読み取ったUIDを下の検索窓に入力することで、正規品かどうかが分かります。
         </p>
         
-        <!-- アプリのダウンロードリンク -->
+        <!-- ボタン式にして自動置換を完全に回避 -->
         <div class="app-links">
             <span style="font-size: 12px; color: #8b949e; display: block;">【おすすめリーダーアプリ（無料）】</span>
-            <a href="https://apple.com" target="_blank" class="app-btn">🍏 iPhone用 (NFC Tools)</a>
-            <a href="https://google.com" target="_blank" class="app-btn">🤖 Android用 (NFC Tools)</a>
+            <button onclick="goAppleStore()" class="app-btn">🍏 iPhone用 (NFC Tools)</button>
+            <button onclick="goGooglePlay()" class="app-btn">🤖 Android用 (NFC Tools)</button>
         </div>
     </div>
 
@@ -145,7 +149,15 @@
     </div>
 
     <script>
-        // この下に、UIDのリストを追加していきます
+        // 各ストアへの本物の直接URLをプログラム内に完全固定
+        function goAppleStore() {
+            window.open("https://apple.com", "_blank");
+        }
+        function goGooglePlay() {
+            window.open("https://google.com", "_blank");
+        }
+
+        // シリアルリスト
         const allowedUIDs = [
             "5A:95:67:5B:1A:41:89"
         ];
