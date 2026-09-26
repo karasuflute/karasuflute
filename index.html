@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>KARASUレバー 正規品判定システム</title>
+    <!-- 暗号化（SHA-256）を行うための安全なライブラリを読み込み -->
+    <script src="https://cloudflare.com"></script>
     <style>
         body { 
             font-family: 'Helvetica Neue', Arial, sans-serif; 
@@ -111,7 +113,13 @@
     </div>
 
     <script>
-        async function checkUID() {
+        // ★ここには「暗号化された文字列」だけを載せます
+        // ※「5A:95:67:5B:1A:41:89」を暗号化した文字列が以下です
+        const allowedHashes = [
+            "601362e604f326302489c629fbbe923838ff4ad43c3f0b2aa7e2212a4b8df2dd"
+        ];
+
+        function checkUID() {
             const input = document.getElementById('uidInput').value.trim();
             const resultDiv = document.getElementById('result');
             
@@ -121,29 +129,16 @@
                 return;
             }
 
-            try {
-                // 同じフォルダにある list.csv を裏側で読み込む
-                const response = await fetch('list.csv');
-                if (!response.ok) {
-                    throw new Error('CSVファイルの読み込みに失敗しました。');
-                }
-                const csvText = await response.text();
-                
-                // CSVを行ごとに分解し、空白や改行を綺麗にする
-                const allowedUIDs = csvText.split('\n').map(row => row.trim()).filter(row => row !== "");
+            // 入力されたUIDをその場で暗号化（SHA-256）
+            const inputHash = CryptoJS.SHA256(input).toString();
 
-                // リスト（CSV内）に入力されたUIDがあるか検索
-                if (allowedUIDs.includes(input)) {
-                    resultDiv.innerHTML = "🟢 正規品（認証済み）<br>この製品は公式が製造した本物だョ(ﾟ ∑ ﾟ)";
-                    resultDiv.style.color = "#58a6ff";
-                } else {
-                    resultDiv.innerHTML = "❌ 未登録の製品<br>偽物、または模倣品の可能性があるカァー(ﾟ ∑ ﾟ)";
-                    resultDiv.style.color = "#f85149";
-                }
-            } catch (error) {
-                resultDiv.innerHTML = "⚠️ エラーが発生しました。時間を置いて再度お試しください。";
-                resultDiv.style.color = "#ffa23e";
-                console.error(error);
+            // 暗号文同士を比較する
+            if (allowedHashes.includes(inputHash)) {
+                resultDiv.innerHTML = "🟢 正規品（認証済み）<br>この製品は公式が製造した本物だョ(ﾟ ∑ ﾟ)";
+                resultDiv.style.color = "#58a6ff";
+            } else {
+                resultDiv.innerHTML = "❌ 未登録の製品<br>偽物、または模倣品の可能性があるカァー(ﾟ ∑ ﾟ)";
+                resultDiv.style.color = "#f85149";
             }
         }
     </script>
