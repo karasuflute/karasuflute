@@ -1,4 +1,4 @@
-ｐ<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -115,7 +115,7 @@
         function goX() { window.open("https://x.com", "_blank"); }
         function goYoutube() { window.open("https://youtube.com", "_blank"); }
 
-        // ★あなたが算出した、コロン付きの正しいハッシュ値に差し替えました
+        // あなたがハッシュ生成サイトで出した値をそのまま固定
         const allowedHashes = [
             "5071fbd98fb67d1bd5662ad69098b5d12349a21d40519fe1a2c1fac8fb05efe0"
         ];
@@ -128,7 +128,8 @@
         }
 
         async function checkUID() {
-            const input = document.getElementById('uidInput').value.trim().toLowerCase();
+            // 変形を一切行わず、入力された文字のまま取得
+            const input = document.getElementById('uidInput').value.trim();
             const resultDiv = document.getElementById('result');
             
             if (input === "") {
